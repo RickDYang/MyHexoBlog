@@ -4,6 +4,7 @@ categories: 备忘
 tags: Hexo
 toc: true
 mathjax: true
+date: 2017-03-06
 ---
 
 为了做学习笔记和分享，开始折腾Hexo博客。遇到一些坑，备忘一下。

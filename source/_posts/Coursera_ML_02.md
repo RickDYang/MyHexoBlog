@@ -3,6 +3,7 @@ title: Study Notes II - Coursera Machine Learning
 mathjax: true
 categories: 机器学习
 tags: [机器学习, Coursera, 数学, 学习笔记]
+date: 2017-03-13
 toc: true
 ---
 Study notes part 1 for machine learning in Coursera. Will demonstrate some mathematics behinds lessons and summarize keys points.

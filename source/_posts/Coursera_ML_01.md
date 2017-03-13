@@ -3,6 +3,7 @@ title: Study Notes I - Coursera Machine Learning
 mathjax: true
 categories: 机器学习
 tags: [机器学习, Coursera, 数学, 学习笔记]
+date: 2017-03-05
 toc: true
 ---
 Study notes part 1 for machine learning in Coursera. Will demonstrate some mathematics behinds lessons and summarize keys points.
@@ -112,13 +113,11 @@ $\frac{\partial}{\partial\theta\_j}J(\theta)
 
 $= \frac{\partial}{\partial h\_\theta(x)}(-y\cdot log(h\_\theta(x))  -(1-y)\cdot log(1-h\_\theta(x)))\cdot \frac{\partial}{\partial\theta\_j}h\_\theta(x)$
 
-$ = (-y\cdot\frac{1}{h\_\theta(x)}\cdot \frac{\partial}{\partial\theta}h\_\theta(x) - (1-y)\cdot\frac{1}{h\_\theta(x)-1})\cdot\frac{\partial}{\partial\theta\_j}h\_\theta(x)$
+$ = (-y\cdot\frac{1}{h\_\theta(x)} - (1-y)\cdot\frac{1}{h\_\theta(x)-1})\cdot\frac{\partial}{\partial\theta\_j}h\_\theta(x)$
 
-$= -\frac{y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)}{h\_\theta(x)\cdot (h\_\theta(x)-1)}\cdot\frac{\partial}{\partial\theta\_j}h\_\theta(x) $
+$ = (\frac{-y}{h\_\theta(x)} + \frac{1-y}{1-h\_\theta(x)})\cdot h\_\theta(x)(1-h\_\theta(x))\cdot x^j$
 
-$=-\frac{y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)}{h\_\theta(x)\cdot (h\_\theta(x)-1)}\cdot h\_\theta(x)(1-h\_\theta(x))\cdot x^j$
-
-$=(y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)) \cdot x^j$
+$ = (-y\cdot (1-h\_\theta(x)) + (1-y)\cdot h\_\theta(x)) \cdot x^j$
 
 $ = (h\_\theta(x)-y) \cdot x^j$
 

@@ -2,6 +2,7 @@
 title: Windows 10 & Ubuntu 双系统工作站
 categories: 备忘 
 tags: [操作系统, bootloader]
+date: 2017-03-06
 toc: true
 ---
 这里记录安装双系统工作站的坑，以备忘。
