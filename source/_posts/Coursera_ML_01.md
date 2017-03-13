@@ -22,18 +22,18 @@ $J(\theta) = \frac{1}{2m}(h_{\theta}(x) - y)^2
 <!--more-->
 
 #### 1.2 Partial Derivative of Cost function ####
-$\frac{\partial}{\partial\theta\_j}J(\theta) = \frac{1}{m}\sum\_{i=1}^{m} ( h\_{\theta}(x^i) - y^i) \cdot x^i$
+$\frac{\partial}{\partial\theta\_j}J(\theta) = \frac{1}{m}\sum\_{i=1}^{m} ( h\_{\theta}(x^i) - y^i) \cdot x^j=(h\_\theta(x)-y)\cdot x^j$
 
 **Prove:**
 
-$\frac{\partial}{\partial\theta}J(\theta) =
- \frac{\partial}{\partial\theta}\frac{1}{2m}\left(h_{\theta}\left( x\right) - y \right)^2 $
+$\frac{\partial}{\partial\theta\_j}J(\theta) =
+ \frac{\partial}{\partial\theta\_j}\frac{1}{2}\left(h\_{\theta}\left( x\right) - y \right)^2 $
  
-$= 2 \cdot \frac{1}{2}(h\_\theta(x)-y)\cdot\frac{\partial}{\partial\theta}(h\_\theta(x)-y)$
+$= 2 \cdot \frac{1}{2}(h\_\theta(x)-y)\cdot\frac{\partial}{\partial\theta\_j}(h\_\theta(x)-y)$
 
-$ = (h_\theta(x)-y) \cdot \frac{\partial}{\partial\theta}(x\cdot \theta - y)$
+$ = (h_\theta(x)-y) \cdot \frac{\partial}{\partial\theta\_j}(x\cdot \theta - y)$
 
-$= (h_\theta(x)-y) \cdot x$
+$= (h_\theta(x)-y) \cdot x^j$
 
 Derivative Chain Rule:
 
@@ -103,27 +103,29 @@ $Cost(h\_\theta(x), y)= -y\cdot log(h\_\theta(x))  -(1-y)\cdot log(1-h\_\theta(x
  
 #### 2.3 Partial Derivative of Cost function ####
 
-$\frac{\partial}{\partial\theta\_j}J(\theta) = \frac{1}{m}\sum\_{i=1}^{m} ( h\_{\theta}(x^i) - y^i) \cdot x^i$
+$\frac{\partial}{\partial\theta\_j}J(\theta) = \frac{1}{m}\sum\_{i=1}^{m} ( h\_{\theta}(x^i) - y^i) \cdot x^j$
 
 **Prove:**
 
-$\frac{\partial}{\partial\theta}J(\theta)
-= \frac{\partial}{\partial\theta}(-y\cdot log(h\_\theta(x))  -(1-y)\cdot log(1-h\_\theta(x)))$
+$\frac{\partial}{\partial\theta\_j}J(\theta)
+= \frac{\partial}{\partial\theta\_j}(-y\cdot log(h\_\theta(x))  -(1-y)\cdot log(1-h\_\theta(x)))$
 
-$ = -y\cdot\frac{1}{h\_\theta(x)}\cdot \frac{\partial}{\partial\theta}h\_\theta(x) - (1-y)\cdot\frac{1}{h\_\theta(x)-1}\cdot\frac{\partial}{\partial\theta}h\_\theta(x)$
+$= \frac{\partial}{\partial h\_\theta(x)}(-y\cdot log(h\_\theta(x))  -(1-y)\cdot log(1-h\_\theta(x)))\cdot \frac{\partial}{\partial\theta\_j}h\_\theta(x)$
 
-$= -\frac{y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)}{h\_\theta(x)\cdot (h\_\theta(x)-1)}\cdot\frac{\partial}{\partial\theta}h\_\theta(x) $
+$ = (-y\cdot\frac{1}{h\_\theta(x)}\cdot \frac{\partial}{\partial\theta}h\_\theta(x) - (1-y)\cdot\frac{1}{h\_\theta(x)-1})\cdot\frac{\partial}{\partial\theta\_j}h\_\theta(x)$
 
-$=-\frac{y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)}{h\_\theta(x)\cdot (h\_\theta(x)-1)}\cdot h\_\theta(x)(1-h\_\theta(x))\cdot x$
+$= -\frac{y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)}{h\_\theta(x)\cdot (h\_\theta(x)-1)}\cdot\frac{\partial}{\partial\theta\_j}h\_\theta(x) $
 
-$=(y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)) \cdot x$
+$=-\frac{y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)}{h\_\theta(x)\cdot (h\_\theta(x)-1)}\cdot h\_\theta(x)(1-h\_\theta(x))\cdot x^j$
 
-$ = (h_\theta(x)-y) \cdot x$
+$=(y\cdot (h\_\theta(x)-1) + (1-y)\cdot h\_\theta(x)) \cdot x^j$
+
+$ = (h\_\theta(x)-y) \cdot x^j$
 
 **where,** $log'(x)=\frac{1}{x}, log'(1-x)=\frac{1}{x-1},$
 
-$\frac{\partial}{\partial\theta}h\_\theta(x)=\frac{\partial}{\partial\theta}g(\theta \cdot x) = g(\theta x)(1 - g(\theta x))\cdot x
-=h\_\theta(x)(1-h\_\theta(x))\cdot x$
+$\frac{\partial}{\partial\theta\_j}h\_\theta(x)=\frac{\partial}{\partial\theta\_j}g(\theta \cdot x) = g(\theta x)(1 - g(\theta x))\cdot \frac{\partial}{\partial \theta\_j}(\theta\cdot x)
+=h\_\theta(x)(1-h\_\theta(x))\cdot x^j$
 
  **vectorized form**
  
