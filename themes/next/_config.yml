@@ -36,7 +36,7 @@ seo: false
 
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
-  home: /
+  ohome: /
   categories: /categories
   tags: /tags
   archives: /archives
@@ -264,6 +264,11 @@ custom_logo:
 # https://github.com/chriskempson/tomorrow-theme
 highlight_theme: normal
 
+
+#Rewards
+reward_comment: 坚持原创技术分享，据说打赏的人都实现一个小目标，赚了一个亿！
+wechatpay: /images/wechat.jpg
+alipay: /images/alipay.jpg
 
 # ---------------------------------------------------------------
 # Third Party Services Settings
