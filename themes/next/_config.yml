@@ -283,10 +283,10 @@ mathjax:
 #baidu_analytics:
 
 # Duoshuo ShortName
-duoshuo_shortname: rickdyang
+#duoshuo_shortname: rickdyang
 
 # Disqus
-#disqus_shortname:
+disqus_shortname: rickdyang
 
 # Hypercomments
 #hypercomments_id:

@@ -6,7 +6,7 @@ tags: [机器学习, Coursera, 数学, 学习笔记]
 date: 2017-03-13
 toc: true
 ---
-Study notes part 1 for machine learning in Coursera. Will demonstrate some mathematics behinds lessons and summarize keys points.
+Study notes part 2 for machine learning in Coursera. Will demonstrate some mathematics behinds lessons and summarize keys points.
 
 ### 1. Neural Network
 **Cost Function**
@@ -49,13 +49,14 @@ J_r = J_r * lambda/(2 * m);
 ```
 ### 2. Backpropagation Algorithm
 Backpropagation Algorithm steps:
->- For each trainng sample
+- For each trainng sample
 Forward propagation to calculte all hypothesis values in each layer till to output layer, $a^l$ for $l=2, 3, ..., L$
 - Compute $\delta^L=a^L - y$
 - Compute $\delta^{L-1}, \delta^{L-2},\dots,\delta^2$, by $\delta^l = ((\Theta^l)^T \delta^{l+1}) \cdot (a^l(1 - a^l))$
 where $g'(z^l) = a^l(1 - a^l)$, as mentioned in my previous note
 - Sum $\Delta^l := \Delta^l + \delta^{l+1}(a^l)^T$
 - $D^l\_{i,j} := \dfrac{1}{m}\left(\Delta^l\_{i,j} + \lambda\Theta^l\_{i,j}\right)$
+
 #### 2.1. Backpropagation Implementation
 Pseudo code in Octave:
 ```Octave
@@ -83,7 +84,7 @@ theta_grad = theta_grad / m + theta_ * lambda / m;
 Backpropagation algorithm is like that a pound of water (input) flow into a (neural) network. We get each water in each level(layer) until the final layer(output). Every $\theta$ is like a pipe between each node. we want to know speed of water in a pipe (partial derivative) , so we use backward calculation to deduce the derivatives.
 Backpropagation algorithm is a kind of **DP** (dynamic programming) algorithm, which reduce duplicate calculation to save time.
 
-- Partial of Hypothesis part
+- Partial Derivative of Hypothesis part
 $\frac\partial {\partial \Theta\_{ij}^l}[-\frac{1}{m} \sum\_{i=1}^m (y \log (h\_\theta (x)) + (1 - y)\log (1 - h\_\theta(x)))]$
 for $\theta\_{ij}^l$ it means in layer $l$ map $x\_i^l$ to $x\_{j}^{l+1}$
 To simplify, we just use one sample $(x, y)$ and one dimention form for $x, y, \theta$ to conduct. The provement is same in vector form.
