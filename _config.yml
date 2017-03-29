@@ -84,3 +84,19 @@ deploy:
   repo: git@github.com:RickDYang/rickdyang.github.io.git
   branch: master
   message: 'Site Update:{{now("YYYY-MM-DD HH/mm/ss")}}'
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+nofollow:
+  enable: true
+  exclude:
+
+#hexo sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
