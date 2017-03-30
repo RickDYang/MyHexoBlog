@@ -26,7 +26,7 @@ Pseudo code in Octave
 ```Octave
 for i = 1:m
     % calculate final hx
-    hx = x;
+    hx = x(i);
     for j = 2:L
         hx = sigmoid([1 hx] * theta(j-1)); % 1 is to add bias unit
     end
@@ -36,7 +36,7 @@ end
 J = J / m;
 ```
 
-- Regularizion part
+- Regularization part
 $\frac{\lambda}{2m}\sum\_{l=1}^{L-1} \sum\_{i=1}^{s\_l} \sum\_{j=1}^{s\_{l+1}} ( \Theta\_{j,i}^l)^2$
 $\Theta$ in each layer is matrix to map value from one layer to next layer. So $\Theta$ has three dimentions notation.
 The above regulariztion part is just square sum of all $\theta$ except bias unit in entire $\Theta$ network.
@@ -62,7 +62,7 @@ Pseudo code in Octave:
 ```Octave
 for i = 1:m
     % Forward propagation
-    a(1) = x;
+    a(1) = x(i);
     for j = 2:L
         a(j) = sigmoid([1 a(j-1)] * theta(j-1)); % 1 is to add bias unit
     end
@@ -121,7 +121,7 @@ $=\delta^{l+1}\theta^l\cdot \frac{\partial}{\partial{\theta^{l-1}}}a^l=\delta^{l
 $=\delta^{l+1}\theta^l\cdot a^l(1-a^l)a^{l-1}=[\delta^{l+1}\theta^l\cdot a^l(1-a^l)]a^{l-1}$
 $=\delta^la^{l-1}$
 Done
-- Partial Derivatives of Regularizion part.
+- Partial Derivatives of Regularization part.
 Conduction is trivial
 $\frac\partial {\partial \Theta\_{ij}^l}(\frac{\lambda}{2m}\sum\_{l=1}^{L-1} \sum\_{i=1}^{s\_l} \sum\_{j=1}^{s\_{l+1}} ( \Theta\_{j,i}^l)^2)
 = \frac{\lambda}{m}\Theta\_{ij}^l$

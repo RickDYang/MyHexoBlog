@@ -50,12 +50,14 @@ default_category: uncategorized
 category_map:
   数学: Mathematics
   机器学习: Machine Learning
+  深度学习: Deep Learning
   编程: Programmming
   学习笔记: Notes
   备忘: Memo
 tag_map:
   数学: Mathematics
   机器学习: Machine Learning
+  深度学习: Deep Learning
   编程: Programmming
   学习笔记: Notes
   操作系统: OS
