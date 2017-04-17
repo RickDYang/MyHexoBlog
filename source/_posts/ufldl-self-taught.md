@@ -62,7 +62,7 @@ trainFeatures = feedForwardAutoencoder(opttheta, hiddenSize, inputSize, ...
 testFeatures = feedForwardAutoencoder(opttheta, hiddenSize, inputSize, ...
                                        testData);
 ```
-即从opttheta得到W1 & b1，然后计算$a_1 = x\cdot W_1 + b_1$
+即从opttheta得到W1 & b1，然后计算$a_1 = f(x\cdot W_1 + b_1)$
 feedForwardAutoencoder实现
 ```Octave
 function [activation] = feedForwardAutoencoder(theta, hiddenSize, visibleSize, data)
@@ -75,7 +75,7 @@ b1 = theta(2*hiddenSize*visibleSize+1:2*hiddenSize*visibleSize+hiddenSize);
 
 %  Instructions: Compute the activation of the hidden layer for the Sparse Autoencoder.
 
-activation = bsxfun(@plus, W1 * data, b1);
+activation = sigmoid(bsxfun(@plus, W1 * data, b1));
 
 end
 ```
