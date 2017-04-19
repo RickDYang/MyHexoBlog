@@ -21,7 +21,7 @@ toc: true
 数据源是MNIST——手写数字库。
 练习将MNIST的训练数据划分从2组，0-4是**标注**组，而1-5是**非标注**组。
 而**标注**组分成了训练集和测试集。
-```Octave
+```matlab
 % 0-4 are labeled while 5-9 is unlabeled
 labeledSet   = find(mnistLabels >= 0 & mnistLabels <= 4);
 unlabeledSet = find(mnistLabels >= 5);
@@ -40,7 +40,7 @@ unlabeledData = mnistData(:, unlabeledSet);
 ## 学习特征 ##
 用之前实现的sparse autoencoder算法来学习特征（从之前练习中把相应依赖文件拷贝过来即可）。
 传入的数据即是unlabeledData，最后得到训练好的opttheta，而W1 & b1则是我们期望得到的特征。
-```Octave
+```matlab
 % sparse autoencoder train
 options = optimset('MaxIter', maxIter);
 [opttheta, cost] = fmincg(@(p) sparseAutoencoderCost(p, ...
@@ -55,7 +55,7 @@ W1 = reshape(opttheta(1:hiddenSize * inputSize), hiddenSize, inputSize);
 ![此处输入图片的描述][2]
 ## 特征转换 ##
 用我们上面计算出来W1对训练和测试数据进行转换，得到的结果是sparse autoencoder算法的隐藏层中的值。
-```Octave
+```matlab
 trainFeatures = feedForwardAutoencoder(opttheta, hiddenSize, inputSize, ...
                                        trainData);
 
@@ -64,7 +64,7 @@ testFeatures = feedForwardAutoencoder(opttheta, hiddenSize, inputSize, ...
 ```
 即从opttheta得到W1 & b1，然后计算$a_1 = f(x\cdot W_1 + b_1)$
 feedForwardAutoencoder实现
-```Octave
+```matlab
 function [activation] = feedForwardAutoencoder(theta, hiddenSize, visibleSize, data)
 
 % We first convert theta to the (W1, W2, b1, b2) matrix/vector format, so that this 
@@ -82,7 +82,7 @@ end
 ## 算法训练 ##
 用之前实现的Softmax算法来学习特征（从之前练习中把相应依赖文件拷贝过来即可）。
 传入的数据是trainFeatures & trainLabels
-```Octave
+```matlab
 lambda = 1e-4;  
 options.maxIter = maxIter;
 softmaxModel = softmaxTrain(hiddenSize, numLabels, lambda, ...
@@ -91,7 +91,7 @@ softmaxModel = softmaxTrain(hiddenSize, numLabels, lambda, ...
 注意softmaxTrain的input size是hiddenSize，因为Softmax的输入已经变成了trainFeatures。
 ### 检验测试 ###
 传入testFeatures & testLabels
-```Octave
+```matlab
 pred = softmaxPredict(softmaxModel, testFeatures);
 
 % Classification Score

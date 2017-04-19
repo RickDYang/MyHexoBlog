@@ -26,7 +26,7 @@ sampleIMAGES & 和computeNumericalGradient实现较简单，相关说明略。
 #### 一些坑 ####
 由于时间有限，我用简单方法跳过了这些坑。如果小伙伴们有更好的办法，请留言告诉我。
 display_network.m里imagesc调用会出错，需要改成
-```Octave
+```matlab
 if opt_graycolor
     %h=imagesc(array,'EraseMode','none',[-1 1]);
     h=imagesc(array,'EraseMode','none');
@@ -36,7 +36,7 @@ else
 end
 ```
 train.m的梯度求解算法minFunc会出一个“lbfgsC”错误，目测可能lbfgsC是C文件而Octave对C支持有问题，没有深究原因。解决方法是把梯度算法替换成Machine Learning作业中用到的fmincg算法即可。
-```Octave
+```matlab
 options = optimset('MaxIter', 400);
 [opttheta, cost] = fmincg(@(p) sparseAutoencoderCost(p, ...
                                    visibleSize, hiddenSize, ...
@@ -50,13 +50,13 @@ sparseAutoencoderCost.m是核心算法，需要计算Cost值和参数偏导值�
 sparseAutoencoderCost最好按例题建议的方式，分步实现。
 #### 调试准备 ####
 如果一开始的采样数据很大（10000）时，运算速度会非常慢，影响调试效率，所以最好把采样数据调小，50即可。
-```Octave
+```matlab
 % sampleIMAGES.m
 numpatches = 50;
 ```
 当然sampleIMAGES不要基于hardcoded 10000来实现。
 Visualization部分也要改一下。
-```Octave
+```matlab
 % train.m
 display_network(patches(:,randi(size(patches,2),36,1)),8);
 ```
@@ -65,7 +65,7 @@ display_network(patches(:,randi(size(patches,2),36,1)),8);
 $J(W,b;x, y)=\frac{1}{m}\sum\_{i=1}^m(\frac{1}{2}(h\_{W,b}(x)-y)$
 对于Autoencoder来说，$y = x$
 求$J(W,b;x, y)$：Forwardpropagation
-```Octave
+```matlab
 % data = x
 % forward
 a2 = sigmoid(bsxfun(@plus, W1 * data, b1));
@@ -80,7 +80,7 @@ $\delta^{(L)} = (a^{(L)} - y)\cdot f'(z^{(L)})=(a^{(L)} - x)\cdot((1-a^{(L)})\cd
 注：这里$f(z)$是sigmoid函数，所以$f'(z^{(L)})=(1-a^{(L)})\cdot a^{(L)}$
 对 $l=L-1, L-2, ..., 2,$
 $\delta^{(l)}=(W^{(l)}\delta^{(l+1)})\cdot ((1-a^{(l)})\cdot a^{(l)})$
-```Octave
+```matlab
 % backward
 delta3 = delta3 .* (a3.*(1 - a3));
 delta2 = (W2' * delta3).* (a2.*(1 - a2));
@@ -98,13 +98,13 @@ cost = J;
 #### 引入Regularization ####
 $J\_w(W,b;x, y)=\frac{\lambda}{2}\sum\_{l=1}^{n\_l-1}\sum\_{i=1}^{s\_l}\sum\_{j=1}^{s\_l+1}
 (W\_{ji}^{(l)})^2$
-```Octave
+```matlab
 J_w = (sum(sum(W1.^2)) + sum(sum(W2.^2))) * lambda / 2;
 cost = J + J_w;
 ```
 求偏导
 $\frac{\partial}{\partial W\_{ij}^{(l)}}J\_w(W,b;x, y)=\lambda W\_{ij}^{(l)}$
-```Octave
+```matlab
 W1grad = delta2 * data' / m  + W1 * lambda;
 W2grad = delta3* a2' / m  + W2 * lambda;
 b1grad = sum(delta2, 2) / m;
@@ -113,7 +113,7 @@ b2grad = sum(delta3, 2) / m;
 #### 引入稀疏性参数 ####
 $\rho\_j=\frac{1}{m}\sum\_{i=1}^m[a\_j^{(2)}(x^{(i)})]$，即对$a^{(2)}$做平均
 $J\_{sparse}(W,b)=\beta\sum\_{j=1}^{s\_2}(\rho log \frac{\rho}{\rho\_j}-(1-\rho) log \frac{1-\rho}{1-\rho\_j})$
-```Octave
+```matlab
 rho = sum(a2,2) / m;
 rho1 = sparsityParam ./ rho;
 rho2 = (1 - sparsityParam) ./ (1 - rho);
@@ -125,7 +125,7 @@ cost = J + J_w + J_KL;
 ```
 稀疏性参数对偏导的影响
 $\delta^{(l)}=(W^{(l)}\delta^{(l+1)} + \beta\cdot(\frac{1-\rho}{1-\rho_i}-\frac{\rho}{\rho_i}))\cdot ((1-a^{(l)})\cdot a^{(l)})$
-```Octave
+```matlab
 delta2 = bsxfun(@plus, W2' * delta3, beta * (rho2 - rho1)).* (a2.*(1 - a2));
 ```
 ### 最后结果 ###

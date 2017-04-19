@@ -22,7 +22,7 @@ Deep Neural Networks是隐藏层层数大于1的神经网络。课后练习也�
 ## 准备 ##
 需要之前实现的sparseAutoencoderCost & feedForwardAutoencoder & softmaxTraining等。
 另外调试中可以暂时把maxIter和训练数据集调小，增加开发效率，否则程序运行会非常慢。等一切测试通过后，再调到需要的值。
-```Octave
+```matlab
 maxIter = 20; % 200
 
 trainData = trainData(:, 1:100);
@@ -30,7 +30,7 @@ trainLabels = trainLabels(1:100,:);
 ```
 ## 分层训练 ##
 用稀疏自编码训练第一层， sae1Theta是随机初始化的，训练的结果在sae1OptTheta
-```Octave
+```matlab
 %  Randomly initialize the parameters
 sae1Theta = initializeParameters(hiddenSizeL1, inputSize);
 
@@ -42,12 +42,12 @@ options = optimset('MaxIter', maxIter);
 								sae1Theta, options);
 ```
 转化为第一层的输出
-```Octave
+```matlab
 [sae1Features] = feedForwardAutoencoder(sae1OptTheta, hiddenSizeL1, ...
                                         inputSize, trainData);
 ```
 用第一层的输出继续用稀疏自编码训练第二层
-```Octave
+```matlab
 %  Randomly initialize the parameters
 sae2Theta = initializeParameters(hiddenSizeL2, hiddenSizeL1);
 
@@ -58,7 +58,7 @@ sae2Theta = initializeParameters(hiddenSizeL2, hiddenSizeL1);
 								sae2Theta, options);
 ```
 最后用第二层的输出用Softmax训练最后的输出层
-```Octave
+```matlab
 [sae2Features] = feedForwardAutoencoder(sae2OptTheta, hiddenSizeL2, ...
                                         hiddenSizeL1, sae1Features);
 
@@ -75,7 +75,7 @@ saeSoftmaxOptTheta = softmaxModel.optTheta(:);
 
 ## 测试 ##
 分层训练完之后，其实就可以跳过第5步的微调开始进行结果测试了。这里我们就能看到未微调前的结果。
-```Octave
+```matlab
 [pred] = stackedAEPredict(stackedAETheta, inputSize, hiddenSizeL2, ...
                           numClasses, netconfig, testData);
 
@@ -84,7 +84,7 @@ fprintf('Before Finetuning Test Accuracy: %0.3f%%\n', acc * 100);
 ```
 stackedAEPredict实现：
 stack即为表示隐藏层参数的数据结构。
-```Octave
+```matlab
 function [pred] = stackedAEPredict(theta, inputSize, hiddenSize, numClasses, netconfig, data)
 
 %% Unroll theta parameter
@@ -107,14 +107,14 @@ end
 ## 参数微调 ##
 ### 微调代价函数 ###
 微调代价函数的实现比较复杂而且容易出错，所以最好在程序一开始调用
-```Octave
+```matlab
 checkStackedAECost();
 ```
 以验证实现的正确性。
 **stackedAECost实现**
 - Forwardpropagation
 计算隐藏层的各层输出结果，并储存到layers{*}.a中
-```Octave
+```matlab
 % forwardpropagation
 layers = cell(numel(stack) + 1, 1);
 layers{1}.a =  data;
@@ -125,7 +125,7 @@ end
 ```
 - Softmax计算
 计算结果
-```Octave
+```matlab
 % softmax
 i = numel(stack) + 1;
 
@@ -141,7 +141,7 @@ softmaxThetaGrad =  - (groundTruth - fx) * layers{i}.a' / M + lambda * softmaxTh
 由于是多层隐藏层，所以没有将稀疏性参数加入到Cost function里的计算中。这也印证了我之前所说的稀疏性参数公式只适用于单隐藏层的想法。
 $\delta^{(l)}$的结果放在layers{i}.d中。而输出层用Softmax进行计算，即
 $\delta^{(L)}=-\theta^T(I-P)\cdot f'(z^{(L)})=-\theta^T(I-P)\cdot (a^{(L)}(1-a^{(L)}))$
-```Octave
+```matlab
 % backpropagation
 layers{i}.d =  - softmaxTheta' * (groundTruth - fx).* (layers{i}.a.*(1 - layers{i}.a));
 
@@ -156,7 +156,7 @@ end
 ```
 - Cost Function
 Softmax's cost function加上各层参数的Regularization
-```Octave
+```matlab
 % cost
 cost = - sum(sum(log(fx).*groundTruth)) / M + lambda * sum(sum(softmaxTheta .^2)) / 2;
 
@@ -167,7 +167,7 @@ end
 实现完成后一定调用checkStackedAECost()来验证实现的正确性。
 ### 微调训练 ###
 注意：初始的stackedAETheta是之前的分层训练结果，而不是随机初始化的值。
-```Octave
+```matlab
 options.maxIter = maxIter;
 [stackedAEOptTheta, cost] = fmincg(@(p) stackedAECost(p, ...
                                     inputSize, hiddenSizeL1, ...
@@ -178,7 +178,7 @@ options.maxIter = maxIter;
 ### 验证 ###
 一切基本测试过后，就可以在整个训练数据集上进行测试了。
 我的机器上一共跑了81分钟，才跑完整个训练过程，最后得到的结果：
-```Octave
+```matlab
 Before Finetuning Test Accuracy: 90.680%
 After Finetuning Test Accuracy: 98.260%
 ```

@@ -23,7 +23,7 @@ vectorization form:
 $-\frac{1}{m} \sum\_{i=1}^m (y \log (h\_\theta (x)) + (1 - y)\log (1 - h\_\theta(x)))$
 The above part is just sum of each data for cost of final hypothesis vs. real result.
 Pseudo code in Octave
-```Octave
+```matlab
 for i = 1:m
     % calculate final hx
     hx = x(i);
@@ -41,7 +41,7 @@ $\frac{\lambda}{2m}\sum\_{l=1}^{L-1} \sum\_{i=1}^{s\_l} \sum\_{j=1}^{s\_{l+1}} (
 $\Theta$ in each layer is matrix to map value from one layer to next layer. So $\Theta$ has three dimentions notation.
 The above regulariztion part is just square sum of all $\theta$ except bias unit in entire $\Theta$ network.
 Pseudo code in Octave:
-```Octave
+```matlab
 for i = 1:L - 1
     J_r += sum(sum(theta(i).^2));
 end
@@ -59,7 +59,7 @@ where $g'(z^{(l)}) = a^{(l)}(1 - a^{(l)})$, as mentioned in my previous note
 
 #### 2.1. Backpropagation Implementation
 Pseudo code in Octave:
-```Octave
+```matlab
 for i = 1:m
     % Forward propagation
     a(1) = x(i);

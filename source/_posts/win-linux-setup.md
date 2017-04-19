@@ -49,7 +49,7 @@ GRUB的界面还是太丑了，强迫症犯了，没法忍受。Google了一圈�
 这时，蓝牙设备是不工作的，因为设备工作在Windows的配对码，我们需要把Linux系统里面的配对码修改成一致。
 - 找到Windows下蓝牙设备的配对码
 在Linux环境下，进入Windows系统目录
-```
+```bash
 cd Windows/System32/config/
 chntpw -e SYSTEM 
 cd ControlSet001\Services\BTHPORT\Parameters\Keys 
@@ -61,7 +61,7 @@ hex "ls 中显示的 value name的值"
    记录下上面步骤显示的Hex值（拍照...）
    
 - 更改Linux蓝牙配对码
-```
+```bash
 cd /var/lib/bluetooth/
 ls # 如果有多个蓝牙设备，可在蓝牙设备管理里查看具体的设备编号
 cd "类似AA:11:22:33:44:55"
@@ -71,7 +71,7 @@ ls
 vim info
 ```
    用之前记录的Hex值（去掉空格）替换文件里面的key值
-```
+```bash
 [LinkKey] 
 Key=0xXXXXXXXXXXXXXXXX
 ```

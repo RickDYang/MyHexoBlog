@@ -15,20 +15,20 @@ toc: true
  从[NVDIA官方网站][1]下载
  Ctrl+Alt+F1进入终端模式
  先卸载旧驱动
- ```shell
+ ```bash
  sudo apt-get remove --purge nvidia*  
  ```
  安装下载的新驱动
  注意要有后面的参数——"-no-x-check --no-nouveau-check --no-opengl-files"
  否则Ubuntu可能会一直卡在login界面，我就被这个坑了好久。
- ```shell
+ ```bash
  sudo chmod a+x NVIDIA-Linux-x86_64-378.13.run
  sudo ./NVIDIA-Linux-x86_64-375.26.run --no-x-check --no-nouveau-check --no-opengl-files
  sudo reboot
  ```
 #### 1.2. 源安装 ####
  如果官方驱动安装有问题，可以尝试下面的源安装
- ```shell
+ ```bash
  sudo add-apt-repository ppa:graphics-drivers/ppa
  sudo apt-get -qy update
  sudo apt-get -qy install nvidia-378
@@ -37,7 +37,7 @@ toc: true
  sudo reboot
  ```
  我安装是nvidia-378，可以从下面的列表里面选个最新的安装
- ```shell
+ ```bash
  apt list nvidia-*
  ```
 ### 2. 安装NVIDIA CUDA 8.0 ###
@@ -46,11 +46,11 @@ toc: true
  [NVIDIA 查询CUDA GPU网站][3]
  Notebook GTX 1050不在列表里面，而Desktop却在，WTF。不管了，继续安装，后来证明是可以的。
  用下面命令查看显卡类型
- ```shell
+ ```bash
  lspci | grep -i nvidia
  ```
  如果不能正确显示显卡型号，需要更新一下PCI ids
- ```shell
+ ```bash
  sudo update-pciids 
  ```
  然后再查一下显卡类型
@@ -59,7 +59,7 @@ toc: true
 #### 2.3. 下载CUDA 8.0 ####
  从[CUDA 8.0][5]选择对应版本下载，我选择的是runfile(local)版本。但是下载实在是太慢了，而且莫名其妙会失败。浏览器直接下载不行，NAS也不行，QQ旋风更不行，最后换成迅雷，飞快地下完了，赞！不放心的话，可以用CUDA Installer Chechsum验证。
 #### 2.4. 安装CUDA ####
- ```shell
+ ```bash
  sudo sh cuda_8.0.61_375.26_linux.run
  ```
  安装的时候会让你再次安装驱动，之前已经安装好了，千万要选No
@@ -69,7 +69,7 @@ toc: true
  安装cuDNN5.1需要注册NVIDIA会员，简单填一下基本信息即可。
  去[Nvidia官网][7]下载cuDNN安装包，选择这个：Download cuDNN v5.1 for CUDA 8.0 & cuDNN v5.1 Library for Linux
  解压安装包以后会出现cuda的目录，进入该目录
- ```shell
+ ```bash
  cd cuda/include/   
  sudo cp cudnn.h /usr/local/cuda/include/   
  cd ../lib64   
@@ -77,36 +77,36 @@ toc: true
  sudo chmod a+r /usr/local/cuda/include/cudnn.h/usr/local/cuda/lib64/libcudnn*  
  ```
  接下来执行以下命令：
- ```shell
+ ```bash
  cd /usr/local/cuda/lib64/   
  sudo rm -rf libcudnn.so libcudnn.so.5   
  sudo ln -s libcudnn.so.5.1.5 libcudnn.so.5   
  sudo ln -s libcudnn.so.5 libcudnn.so  
  ```
  在终端中输入以下命令进行环境变量的配置：
- ```shell
+ ```bash
  sudo gedit /etc/profile  
  ```
  在末尾加上：
- ```shell
+ ```bash
  PATH=/usr/local/cuda/bin:$PATH   
  export PATH
  ```
  创建链接文件
- ```shell
+ ```bash
  sudo gedit /etc/ld.so.conf.d/cuda.conf 
  ```
  在该文件末尾加入
- ```shell
+ ```bash
  /usr/local/cuda/lib64
  ```
  然后使用ldconfig使之生效
- ```shell
+ ```bash
  sudo ldconfig
  ```
 ### 4. 验证CUDA & cuDNN ###
  进入CUDA 8.0 Samples默认安装路径
- ```shell
+ ```bash
  sudo make all -j4  
  cd bin/x86_64/linux/release   
  ./deviceQuery

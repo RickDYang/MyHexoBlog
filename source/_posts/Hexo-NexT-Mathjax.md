@@ -28,7 +28,7 @@ Google了一下，有两种方案
  - 修改渲染器
  有人做了一个新的渲染器，优先渲染对Latex语法进行渲染。
  安装方式如下
- ```
+ ```bash
  npm uninstall hexo-renderer-marked --save
  npm install hexo-renderer-markdown-it --save
  ```

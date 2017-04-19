@@ -11,7 +11,7 @@ toc: true
 Tensorflow的安装请参考[官方网站][2]
 ## cuda环境变量 ##
 cuda安装完成后，需要编辑.bashrc，加入相关cuda环境变量，否则运行示例时会报错。
-```shell
+```bash
 export CUDA_HOME=/usr/local/cuda-8.0
 export CUDA_ROOT=/usr/local/cuda-8.0
 export PATH=$PATH:$CUDA_ROOT/bin
@@ -21,7 +21,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_ROOT/lib:$CUDA_ROOT/lib64:$CUDA_RO
 native 'pip'的tensorflow with GPU的安装和官网上介绍的无异，就不单独介绍了。
 不过安装好的tensorflow并没有mnist_deep.py的示例，只有从github上clone下来。
 Clone the TensorFlow repository
-```
+```bash
 git clone https://github.com/tensorflow/tensorflow
 ```
 然后把在tensorflow/tensorflow/examples/拷贝到系统的tensorflow安装目录中。tensorflow安装目录可以用如下方式查看
@@ -30,11 +30,11 @@ python -c 'import os; import inspect; import tensorflow; print(os.path.dirname(i
 ```
 mnist_deep.py示例在tensorflow/tensorflow/examples/tutorials/mnist/中
 运行
-```zch
+```bash
 python mnist_deep.py 
 ```
 第一次运行有初始化和下载数据，开始得比较慢。然后就开始运算迭代，风扇狂转。迭代20000次后,就会输出结果0.992.
-```zch
+```bash
 I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.8.0 locally
 I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.5 locally
 I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.8.0 locally
@@ -102,39 +102,39 @@ W tensorflow/core/framework/op_kernel.cc:993] Resource exhausted: OOM when alloc
 ## virtualenv 安装 ##
 virtualenv安装也与官方网站上介绍的无异，也不单独介绍了。
 进入virtualenv环境
-```
+```bash
 source ~/tensorflow/bin/activate 
 ```
 virtualenv环境可以访问宿主资源，直接找到之前安装的示例文件
 运行
-```zch
+```bash
 python mnist_deep.py 
 ```
 退出virtualenv
-```
+```bash
 deactivate
 ```
 ## Docker 安装 ##
 Docker的安装比较麻烦一点儿。
 也是按照官网上的步骤一步一步的来，尤其是要安装nvidia-docker
 安装好后，测试。测试通过会显示显卡驱动等信息。
-```
+```bash
 # Test nvidia-smi
 nvidia-docker run --rm nvidia/cuda nvidia-smi
 ```
 选择Docker Container时，安装最新的GPU版本：latest-gpu
 Docker是在独立环境中运行的，需要mount本地的examples目录，才能保证能够运行示例。
-```
+```bash
 sudo nvidia-docker run -it -v /home/$USER/tensorflow/examples:/home/tensorflow/examples --name tensorflow gcr.io/tensorflow/tensorflow:latest-gpu
 
 ```
 上面命令中的tensorflow是容器名字，-v后的参数就是mount的本地目录。
 然后新开一个终端，用容器名字tensorflow进入容器
-```
+```bash
 sudo nvidia-docker exec -it tensorflow bash
 ```
 找到mount的examples目录，运行示例
-```
+```bash
 python mnist_deep.py
 ```
 

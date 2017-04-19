@@ -80,7 +80,8 @@ $\frac{\partial}{\partial b\_{k}^{(1)}}\beta\sum\_{j=1}^{S\_2}KL\_j^{(2)} = =\fr
 So by backpropagation conduction, we can calculate
 $\delta\_k^{(2)}+=\beta(-\frac{\rho}{\rho\_k^{(2)}}+\frac{1-\rho}{1-\rho\_k^{(2)}})\cdot f'(z\_k^{(1)})$
 But $\delta\_k^{(2)} \not= \frac{\partial}{\partial z\_k^{(2)}}J\_{sparse}(W,b)$
-### Open Questions for Parsity Penalty###
-- Does Parsity Penalty works for neural network with one single hidden layer?
-- If not, how does Parsity Penalty work for neural network with more than one hidden layers? How to implement the backpropagation algorithm ?
+### Open Questions for Sparsity Penalty###
+- Why is Sparsity Penalty important? How does it work?
+- Does Sparsity Penalty works for neural network with one single hidden layer?
+- If not, how does Sparsity Penalty work for neural network with more than one hidden layers? How to implement the backpropagation algorithm ?
   [1]: http://ufldl.stanford.edu/wiki/index.php/Backpropagation_Algorithm
