@@ -1,5 +1,5 @@
 ﻿---
-title: Learning Tensorflow from MNIST samples
+title: Learning Tensorflow from MNIST Examples
 categories: 机器学习
 tags: [机器学习,tensorflow]
 date: 2017-05-02

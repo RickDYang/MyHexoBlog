@@ -9,7 +9,7 @@ toc: true
 
 When we use Cross-Entropy Loss as **Cost Function** for Softmax, we need to know its partitial derivatvies. Here I want to do some mathematics inference for Cross-Entropy Loss,
 
-**May Fourth be with you.**
+**May the Fourth be with you.**
 <!--more-->
 ## Defintions ##
 ### Hypothesis Function ###
