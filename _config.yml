@@ -61,6 +61,7 @@ tag_map:
   编程: Programmming
   学习笔记: Notes
   操作系统: OS
+  备忘: Memo
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date

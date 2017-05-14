@@ -1,9 +1,9 @@
 ---
 title: Hello World
-date: 2016-10-21 06:34:29
+date: 2016-10-21
 description: Hello World
 ---
-# Hello World #
+## Hello World ##
 
 
 ### Welcome to my blog ###
