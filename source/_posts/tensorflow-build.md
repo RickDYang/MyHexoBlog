@@ -1,8 +1,8 @@
 ﻿---
 title: 编译优化TensorFlow
 mathjax: true
-categories: 备忘, TensorFlow
-tags: [备忘]
+categories: 备忘
+tags: [备忘, tensorflow]
 date: 2017-05-25
 ---
 TensorFlow release版没有对特定硬件进行编译优化，如果要优化TensorFlow的运行效率，需要自己编译。
